@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a12;
+  --foreground: #e8f4ff;
+  --bg: #0a0a12;
+  --grid: rgba(0, 255, 255, 0.06);
+  --snake-head: #00fff7;
+  --snake-body: #7b2ff7;
+  --food: #ff2d95;
+  --accent: #00fff7;
+  --text: #e8f4ff;
+  --glow: rgba(0, 255, 247, 0.5);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.glass-panel {
+  @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl;
+}
+
+.glass-stat {
+  @apply flex flex-col items-center rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm;
+}
