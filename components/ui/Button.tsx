@@ -4,9 +4,14 @@ import { motion } from "framer-motion";
 import { playSound } from "@/lib/audio";
 import { useSettingsStore } from "@/store/settingsStore";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
+  children: React.ReactNode;
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
+  className?: string;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export function Button({
@@ -15,7 +20,8 @@ export function Button({
   size = "md",
   className = "",
   onClick,
-  ...props
+  disabled,
+  type = "button",
 }: ButtonProps) {
   const soundEnabled = useSettingsStore((s) => s.soundEnabled);
 
@@ -34,17 +40,22 @@ export function Button({
   };
 
   return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className={`rounded-xl font-semibold transition-colors ${variants[variant]} ${sizes[size]} ${className}`}
-      onClick={(e) => {
-        playSound("click", soundEnabled);
-        onClick?.(e);
-      }}
-      {...props}
+    <motion.span
+      whileHover={{ scale: disabled ? 1 : 1.02 }}
+      whileTap={{ scale: disabled ? 1 : 0.98 }}
+      className="inline-block"
     >
-      {children}
-    </motion.button>
+      <button
+        type={type}
+        disabled={disabled}
+        className={`rounded-xl font-semibold transition-colors ${variants[variant]} ${sizes[size]} ${className}`}
+        onClick={(e) => {
+          playSound("click", soundEnabled);
+          onClick?.(e);
+        }}
+      >
+        {children}
+      </button>
+    </motion.span>
   );
 }

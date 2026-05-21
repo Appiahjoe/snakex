@@ -17,7 +17,6 @@ export function GameOverOverlay({ onRestart }: GameOverOverlayProps) {
   const score = useGameStore((s) => s.engine?.score ?? 0);
   const playerName = useSettingsStore((s) => s.playerName);
   const difficulty = useSettingsStore((s) => s.difficulty);
-  const setHighScore = useSettingsStore((s) => s.highScore);
   const highScore = useSettingsStore((s) => s.highScore);
   const [saved, setSaved] = useState(false);
 
